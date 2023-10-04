@@ -1,4 +1,4 @@
-extends Camera
+extends Camera3D
 
 export(float, 0.0, 1.0) var sensitivity = 0.25
 
