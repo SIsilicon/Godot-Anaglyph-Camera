@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var use_anaglyph := true
 
@@ -9,7 +9,7 @@ func _input(event: InputEvent) -> void:
 		$MainCamera/AnaglyphCamera.current = use_anaglyph
 	
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == BUTTON_WHEEL_UP:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			$MainCamera/AnaglyphCamera.half_res += 0.1
-		if event.button_index == BUTTON_WHEEL_DOWN:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			$MainCamera/AnaglyphCamera.half_res -= 0.1

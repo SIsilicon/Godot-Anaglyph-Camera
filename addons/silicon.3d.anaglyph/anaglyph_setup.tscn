@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dqt2up3xhyr75"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;
 
 uniform sampler2D left_camera;
@@ -33,46 +33,42 @@ void fragment() {
 //	COLOR.rgb = SCREEN_UV.x > 0.5 ? right.rgb : left.rgb;
 }"
 
-[sub_resource type="ViewportTexture" id=2]
-flags = 4
+[sub_resource type="ViewportTexture" id="2"]
 viewport_path = NodePath("Left")
 
-[sub_resource type="ViewportTexture" id=3]
-flags = 4
+[sub_resource type="ViewportTexture" id="3"]
 viewport_path = NodePath("Right")
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id="4"]
 resource_local_to_scene = true
-shader = SubResource( 1 )
-shader_param/black_and_white = null
-shader_param/half_res = null
-shader_param/left_camera = SubResource( 2 )
-shader_param/right_camera = SubResource( 3 )
+shader = SubResource("1")
+shader_parameter/black_and_white = null
+shader_parameter/half_res = null
+shader_parameter/left_camera = SubResource("2")
+shader_parameter/right_camera = SubResource("3")
 
-[node name="Anaglyph" type="Spatial"]
+[node name="Anaglyph" type="Node3D"]
 
-[node name="Left" type="Viewport" parent="."]
-size = Vector2( 128, 128 )
-render_target_update_mode = 3
+[node name="Left" type="SubViewport" parent="."]
 gui_disable_input = true
+size = Vector2i(128, 128)
+render_target_update_mode = 3
 
-[node name="Camera" type="Camera" parent="Left"]
+[node name="Camera" type="Camera3D" parent="Left"]
 projection = 2
 size = 0.1
 
-[node name="Right" type="Viewport" parent="."]
-size = Vector2( 128, 128 )
-render_target_update_mode = 3
+[node name="Right" type="SubViewport" parent="."]
 gui_disable_input = true
+size = Vector2i(128, 128)
+render_target_update_mode = 3
 
-[node name="Camera" type="Camera" parent="Right"]
+[node name="Camera" type="Camera3D" parent="Right"]
 projection = 2
 size = 0.1
 
 [node name="Composite" type="ColorRect" parent="."]
-material = SubResource( 4 )
+material = SubResource("4")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
